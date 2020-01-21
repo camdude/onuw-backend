@@ -1,20 +1,12 @@
 {
   "version": 2,
-  "name": "express-now",
-  "builds": [{
-      "src": "index.js",
-      "use": "@now/node-server"
-  }],
-  "routes": [{
-      "headers": {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
-      },
-      "src": "/.*",
-      "dest": "/index.js"
-  }],
+  "name": "express-test",
+  "builds": [{ "src": "/index.js", "use": "@now/node" }],
+  "routes": [
+    { "src": "/roleset", "dest": "/index.js" },
+    { "src": "/roleset/(.+)", "dest": "/index.js" }
+  ],
   "env": {
-      "VERSION": "@version"
+    "MONGO_ADDRESS": "@mongo-address"
   }
 }
