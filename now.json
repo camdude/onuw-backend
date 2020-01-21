@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "express-test",
+  "name": "onuw-backend",
   "builds": [{ "src": "/index.js", "use": "@now/node" }],
   "routes": [
     { "src": "/roleset", "dest": "/index.js" },
