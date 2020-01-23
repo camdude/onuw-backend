@@ -3,10 +3,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const rolesetRoutes = require("./routes/roleset-routes");
+const userRoutes = require("./routes/user-routes");
 
-const { MONGO_ADDRESS} = process.env
+const { MONGO_ADDRESS } = process.env;
 
-mongoose.connect(MONGO_ADDRESS);
+mongoose.connect(MONGO_ADDRESS, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 mongoose.Promise = global.Promise;
 console.log("[server]", "Connected to database");
 
@@ -24,6 +28,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/roleset", rolesetRoutes);
+app.use("/api/roleset", rolesetRoutes);
+app.use("/api/user", userRoutes);
 
 module.exports = app;

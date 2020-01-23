@@ -120,7 +120,7 @@ const getRoleSetById = async (req, res, next) => {
 };
 
 const createRoleSet = async (req, res, next) => {
-  const { title, complexity, desc, roles } = req.body;
+  const { title, complexity, username, desc, roles } = req.body;
 
   let expansions = [];
   for (let i = 0; i < roles.length; i++) {
@@ -150,6 +150,7 @@ const createRoleSet = async (req, res, next) => {
     players: roles.length - 3,
     complexity,
     rating: 0,
+    username,
     expansions,
     desc,
     roles

@@ -3,8 +3,11 @@
   "name": "onuw-backend",
   "builds": [{ "src": "/index.js", "use": "@now/node" }],
   "routes": [
-    { "src": "/roleset", "dest": "/index.js" },
-    { "src": "/roleset/(.+)", "dest": "/index.js" }
+    { "src": "/api/roleset", "dest": "/index.js" },
+    { "src": "/api/roleset/(.+)", "dest": "/index.js" },
+    { "src": "/api/user/(.+)", "dest": "/index.js" },
+    { "src": "/api/user/new", "dest": "/index.js" },
+    { "src": "/api/user/login", "dest": "/index.js" }
   ],
   "env": {
     "MONGO_ADDRESS": "@mongo-address"
