@@ -17,6 +17,7 @@ The following dependencies were added.
 * body-parser 1.19.0
 * express 4.17.1
 * mongoose 5.8.2
+* bcryptjs 2.4.3
 
 ## Install and Ussage
 

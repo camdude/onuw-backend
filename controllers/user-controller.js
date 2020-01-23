@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 const getUser = async (req, res, next) => {
   const userId = req.params.uid;
@@ -7,7 +8,7 @@ const getUser = async (req, res, next) => {
     existingUser = await User.findById(userId);
   } catch (error) {
     console.log("[server:user-controller]", error);
-    return next();
+    return next(error);
   }
 
   let user = existingUser.toObject({ getters: true });
@@ -30,13 +31,21 @@ const createUser = async (req, res, next) => {
   }
 
   if (existingUser) {
+    return next();
+  }
+
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hash(password, 12);
+  } catch (error) {
+    console.log(error);
     return next(error);
   }
 
   const createdUser = new User({
     username,
     email,
-    password
+    password: hashedPassword
   });
 
   try {
@@ -63,8 +72,20 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  if (!existingUser || existingUser.password != password) {
+  if (!existingUser) {
+    return next();
+  }
+
+  let isValidPassword;
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
+  } catch (error) {
+    console.log(error);
     return next(error);
+  }
+
+  if (!isValidPassword) {
+    return next();
   }
 
   let user = existingUser.toObject({ getters: true });

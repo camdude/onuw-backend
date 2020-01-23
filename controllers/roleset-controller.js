@@ -100,7 +100,7 @@ const getRoleSets = async (req, res, next) => {
     roleSets = await RoleSet.find();
   } catch (error) {
     console.log("[server:roleset-controller]", error);
-    return next();
+    return next(error);
   }
   res.json({
     rolesets: roleSets.map(set => set.toObject({ getters: true }))
@@ -114,7 +114,7 @@ const getRoleSetById = async (req, res, next) => {
     roleset = await RoleSet.findById(rolesetId);
   } catch (error) {
     console.log("[server:roleset-controller]", error);
-    return next();
+    return next(error);
   }
   res.json({ roleset: roleset.toObject({ getters: true }) });
 };
@@ -160,7 +160,7 @@ const createRoleSet = async (req, res, next) => {
     await createdRoleSet.save();
   } catch (error) {
     console.log(error);
-    return next();
+    return next(error);
   }
 
   res.status(201).json({ roleset: createdRoleSet.toObject({ getters: true }) });
